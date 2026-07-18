@@ -1,0 +1,6 @@
+# Ignore log files
+*.log
+
+# Ignore OS files
+Thumbs.db
+Desktop.ini
