@@ -75,6 +75,9 @@
             <a href="#experience" class="btn btn-primary">
               View Experience <i data-lucide="arrow-right" class="btn-icon"></i>
             </a>
+            <button id="watchVideoBtn" class="btn btn-secondary">
+              <i data-lucide="play" class="btn-icon"></i> Watch Intro
+            </button>
             <a href="cv.pdf" download class="btn btn-secondary">
               Download CV <i data-lucide="download" class="btn-icon"></i>
             </a>
@@ -105,6 +108,9 @@
           <div class="profile-image-container">
             <div class="profile-image-glow"></div>
             <img src="assets/profile.jpg" alt="Nino Kapanadze Profile Photo" class="profile-image">
+            <button id="imagePlayBtn" class="profile-play-btn" aria-label="Play intro video">
+              <i data-lucide="play"></i>
+            </button>
             <div class="floating-card location-card">
               <i data-lucide="map-pin"></i>
               <span>Tbilisi, Georgia</span>
@@ -549,6 +555,21 @@
       </div>
     </div>
   </footer>
+
+  <!-- Video Modal -->
+  <div id="videoModal" class="video-modal-overlay hidden">
+    <div class="video-modal-content glass-card">
+      <button id="closeVideoBtn" class="video-modal-close" aria-label="Close video">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="video-player-container">
+        <video id="introVideo" controls playsinline>
+          <source src="assets/video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

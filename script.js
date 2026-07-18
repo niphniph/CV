@@ -186,4 +186,58 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1500);
     });
   }
+
+  // 8. Video Modal Popup Logic
+  const videoModal = document.getElementById('videoModal');
+  const introVideo = document.getElementById('introVideo');
+  const watchVideoBtn = document.getElementById('watchVideoBtn');
+  const imagePlayBtn = document.getElementById('imagePlayBtn');
+  const closeVideoBtn = document.getElementById('closeVideoBtn');
+
+  const openModal = () => {
+    if (videoModal && introVideo) {
+      videoModal.classList.remove('hidden');
+      introVideo.play().catch(err => {
+        console.log("Autoplay or play call prevented by browser policies:", err);
+      });
+    }
+  };
+
+  const closeModal = () => {
+    if (videoModal && introVideo) {
+      videoModal.classList.add('hidden');
+      introVideo.pause();
+    }
+  };
+
+  if (watchVideoBtn) {
+    watchVideoBtn.addEventListener('click', openModal);
+  }
+  if (imagePlayBtn) {
+    imagePlayBtn.addEventListener('click', openModal);
+  }
+  if (closeVideoBtn) {
+    closeVideoBtn.addEventListener('click', closeModal);
+  }
+
+  // Close modal when clicking on background overlay
+  if (videoModal) {
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeModal();
+      }
+    });
+  }
+
+  // Close modal on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  // Auto-pop up video 1.2 seconds after page load
+  setTimeout(() => {
+    openModal();
+  }, 1200);
 });
