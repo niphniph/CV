@@ -4,3 +4,7 @@
 # Ignore OS files
 Thumbs.db
 Desktop.ini
+*.lnk
+
+# Wrangler
+.wrangler/
