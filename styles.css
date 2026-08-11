@@ -1334,3 +1334,83 @@ section {
   }
 }
 
+/* CV Section Styling */
+.cv-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.cv-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 32px;
+  max-width: 860px;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.cv-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  margin-bottom: 8px;
+}
+
+.cv-icon-wrapper i {
+  width: 36px;
+  height: 36px;
+}
+
+.cv-card h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.cv-card-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.cv-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.cv-preview-container {
+  width: 100%;
+  height: 600px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  background: rgba(8, 10, 15, 0.6);
+}
+
+.cv-preview-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .cv-card {
+    padding: 28px 16px;
+  }
+  .cv-preview-container {
+    height: 420px;
+  }
+}
+
+
