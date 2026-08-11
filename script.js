@@ -148,18 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', highlightNav);
 
-  // 7. Contact Form Handler & Submission Simulation
+  // 7. Contact Form Handler & Real Email Delivery
   const contactForm = document.getElementById('contactForm');
   const formFeedback = document.getElementById('formFeedback');
 
   if (contactForm && formFeedback) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const submitBtn = contactForm.querySelector('.btn-submit');
       const originalBtnHtml = submitBtn.innerHTML;
       
-      // Simulate loading state
+      // Indicate loading state
       submitBtn.disabled = true;
       submitBtn.innerHTML = 'Sending... <span class="spinner"></span>';
       
@@ -168,22 +168,46 @@ document.addEventListener('DOMContentLoaded', () => {
       const subjectVal = document.getElementById('subject').value;
       const messageVal = document.getElementById('message').value;
 
-      setTimeout(() => {
-        // Simple success response simulation
-        formFeedback.className = 'form-feedback success';
-        formFeedback.innerHTML = `<strong>Success!</strong> Thank you, ${nameVal}. Your message has been sent. Nino will get back to you shortly at ${emailVal}.`;
-        formFeedback.classList.remove('hidden');
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/Ninekapanadze@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: nameVal,
+            email: emailVal,
+            _subject: `Portfolio Contact: ${subjectVal}`,
+            message: messageVal
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok || data.success === 'true') {
+          formFeedback.className = 'form-feedback success';
+          formFeedback.innerHTML = `<strong>Success!</strong> Thank you, ${nameVal}. Your message has been sent directly to Ninekapanadze@gmail.com.`;
+          formFeedback.classList.remove('hidden');
+          contactForm.reset();
+        } else {
+          throw new Error('Submission service error');
+        }
+      } catch (err) {
+        // Fallback: open mailto link directly if AJAX service is unavailable
+        window.location.href = `mailto:Ninekapanadze@gmail.com?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(`Name: ${nameVal}\nEmail: ${emailVal}\n\n${messageVal}`)}`;
         
-        // Reset button and form
+        formFeedback.className = 'form-feedback success';
+        formFeedback.innerHTML = `<strong>Thank you, ${nameVal}!</strong> Opening your email client to send your message to Ninekapanadze@gmail.com.`;
+        formFeedback.classList.remove('hidden');
+      } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnHtml;
-        contactForm.reset();
         
-        // Hide success alert after 6 seconds
         setTimeout(() => {
           formFeedback.classList.add('hidden');
-        }, 6000);
-      }, 1500);
+        }, 8000);
+      }
     });
   }
 
